@@ -1,0 +1,58 @@
+package com.johannes_mittendorfer.simpleobex;
+
+public enum Opcode {
+    CONNECT(0x0),
+    DISCONNECT(0x1),
+    PUT(0x2),
+    GET(0x3),
+    ABORT(0x4),
+    SET_PATH(0x5),
+    CONTINUE(0x10),
+    SUCCESS(0x20),
+    CREATED(0x21),
+    ACCEPTED(0x22),
+    NON_AUTHORITATIVE_INFORMATION(0x23),
+    NO_CONTENT(0x24),
+    RESET_CONTENT(0x25),
+    PARTIAL_CONTENT(0x26),
+    MULTIPLE_CHOICES(0x30),
+    MOVED_PERMANENTLY(0x31),
+    MOVED_TEMPORARILY(0x32),
+    SEE_OTHER(0x33),
+    NOT_MODIFIED(0x34),
+    USE_PROXY(0x35),
+    BAD_REQUEST(0x40),
+    UNAUTHORIZED(0x41),
+    PAYMENT_REQUIRED(0x42),
+    FORBIDDEN(0x43),
+    NOT_FOUND(0x44),
+    METHOD_NOT_ALLOWED(0x45),
+    NOT_ACCEPTABLE(0x46),
+    PROXY_AUTHENTICATION_REQUIRED(0x47),
+    REQUEST_TIME_OUT(0x48),
+    CONFLICT(0x49),
+    GONE(0x4A),
+    LENGTH_REQUIRED(0x4B),
+    PRECONDITION_FAILED(0x4C),
+    REQUEST_ENTITY_TOO_LARGE(0x4D),
+    REQUEST_URL_TOO_LARGE(0x4E),
+    UNSUPPORTED_MEDIA_TYPE(0x4F),
+    INTERNAL_SERVER_ERROR(0x50),
+    NOT_IMPLEMENTED(0x51),
+    BAD_GATEWAY(0x52),
+    SERVICE_UNAVAILABLE(0x53),
+    GATEWAY_TIMEOUT(0x54),
+    HTTP_VERSION_NOT_SUPPORTED(0x55),
+    DATABASE_FULL(0x60),
+    DATABASE_LOCKED(0x61);
+
+    private int numVal;
+
+    Opcode(int numVal) {
+        this.numVal = numVal;
+    }
+
+    public int getNumVal() {
+        return numVal;
+    }
+}
