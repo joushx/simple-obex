@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is the base to create custom OBEX messages. It provides methods to add headers and parse messages.
+ */
 public class OBEXMessage {
 
     private final ArrayList<OBEXHeader> headers = new ArrayList<OBEXHeader>();
@@ -20,13 +23,21 @@ public class OBEXMessage {
     private int _maxLength;
     private boolean connect;
 
+    /**
+     * Retrieves the length of the whole message including all headers in bytes.
+     *
+     * @return the length in bytes
+     */
     private int getLength(){
         int length = 1 + 2;
 
+        // check if it is a connect message
+        // and adjust length if so
         if(connect){
             length += 1+1+2;
         }
 
+        // add the length of the headers
         for(OBEXHeader h: getHeaders()){
             length += h.getLength();
         }
@@ -34,6 +45,12 @@ public class OBEXMessage {
         return length;
     }
 
+    /**
+     * Parses a OBEX message and returns a {@link com.johannes_mittendorfer.simpleobex.OBEXMessage} object.
+     *
+     * @param data the bytes of the message
+     * @return a {@link com.johannes_mittendorfer.simpleobex.OBEXMessage} object
+     */
     public static OBEXMessage parse(byte[] data){
 
         OBEXMessage msg = new OBEXMessage((byte) (data[0] & 0x7f), ((data[0] & 0xFF) >> 7) == 1);
@@ -79,7 +96,8 @@ public class OBEXMessage {
     }
 
     /**
-     * Creates a OBEX message
+     * Creates a OBEX message with the opcode as {@link java.lang.Byte}.
+     *
      * @param opcode The opcode of the message (e.g. GET, PUT, ...)
      * @param isFinal If true the packet is marked as final packet
      */
@@ -89,7 +107,8 @@ public class OBEXMessage {
     }
 
     /**
-     * Creates a OBEX message
+     * Creates a OBEX message with the opcode as a {@link com.johannes_mittendorfer.simpleobex.Opcode} value.
+     *
      * @param opcode The opcode of the message (e.g. GET, PUT, ...)
      * @param isFinal If true the packet is marked as final packet
      */
@@ -98,7 +117,8 @@ public class OBEXMessage {
     }
 
     /**
-     * Creates a OBEX connect message
+     * Creates a OBEX connect message.
+     *
      * @param version The version of the OBEX protocol (should be 0x10)
      * @param flags The flags of the connect message
      * @param maxLength Maximum length of OBEX packets in this session
@@ -112,6 +132,11 @@ public class OBEXMessage {
         connect = true;
     }
 
+    /**
+     * Returns the raw message bytes according to your settings.
+     *
+     * @return bytes of the message
+     */
     public byte[] getBytes(){
         ArrayList<Byte> bytes = new ArrayList<Byte>();
 
@@ -137,29 +162,40 @@ public class OBEXMessage {
         return toByteArray(bytes);
     }
 
+    /**
+     * Adds a {@link com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader} to the message
+     *
+     * @param header the header to add
+     */
     public void addHeader(OBEXHeader header){
         this.headers.add(header);
     }
 
+    /**
+     * Retrieves the headers of the message
+     *
+     * @return a array of {@link com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader} objects
+     */
     public OBEXHeader[] getHeaders(){
         return headers.toArray(new OBEXHeader[headers.size()]);
     }
 
+    /**
+     * Gets the opcode (e.g. GET, PUT,...) of the message
+     *
+     * @return the opcode
+     */
     public byte getOpcode() {
         return _opcode;
     }
 
+    /**
+     * Checks if the final flag is set
+     *
+     * @return the final flag
+     */
     public boolean isFinal() {
         return _final;
-    }
-
-    private byte[] toByteArray(List<Byte> in) {
-        final int n = in.size();
-        byte ret[] = new byte[n];
-        for (int i = 0; i < n; i++) {
-            ret[i] = in.get(i);
-        }
-        return ret;
     }
 
     public String toString(){
@@ -175,5 +211,14 @@ public class OBEXMessage {
         }
 
         return result;
+    }
+
+    private byte[] toByteArray(List<Byte> in) {
+        final int n = in.size();
+        byte ret[] = new byte[n];
+        for (int i = 0; i < n; i++) {
+            ret[i] = in.get(i);
+        }
+        return ret;
     }
 }
