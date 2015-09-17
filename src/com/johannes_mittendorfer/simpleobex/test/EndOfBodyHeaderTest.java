@@ -34,6 +34,9 @@ public class EndOfBodyHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() throws Exception {
-        Assert.fail();
+        byte[] data = new byte[]{0x49, 0x00, 0x06, 0x01, 0x00, 0x02};
+        EndOfBodyHeader h = EndOfBodyHeader.parse(data);
+
+        Assert.assertArrayEquals(new byte[]{0x1, 0x0, 0x2}, h.getValue());
     }
 }

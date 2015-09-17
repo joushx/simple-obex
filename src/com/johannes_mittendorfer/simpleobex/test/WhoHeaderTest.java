@@ -39,6 +39,11 @@ public class WhoHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() {
-        Assert.fail();
+        byte[] expected = TestUtil.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
+        byte[] data = TestUtil.hexStringToByteArray("4a0013796135f0f0c511d809660800200c9a66");
+
+        WhoHeader h = WhoHeader.parse(data);
+
+        Assert.assertArrayEquals(expected, h.getValue());
     }
 }

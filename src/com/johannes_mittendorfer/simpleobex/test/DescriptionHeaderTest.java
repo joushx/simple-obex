@@ -30,6 +30,9 @@ public class DescriptionHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() throws Exception {
-        Assert.fail();
+        byte[] data = new byte[]{0x05, 0x0, 0x7, 0x46, 0x6F, 0x6F, 0x00};
+        DescriptionHeader h = DescriptionHeader.parse(data);
+
+        Assert.assertEquals("Foo", h.getValue());
     }
 }

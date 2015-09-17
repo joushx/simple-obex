@@ -10,6 +10,6 @@ public class HTTPHeader extends StringHeader {
 
     @Override
     public String toString() {
-        return null;
+        return "HTTP: " + value;
     }
 }

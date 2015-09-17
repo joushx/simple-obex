@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.GregorianCalendar;
 
 public class TimeHeaderTest extends HeaderTest {
@@ -43,6 +44,13 @@ public class TimeHeaderTest extends HeaderTest {
 
     @Test
     public void testParse() throws UnsupportedEncodingException {
-        Assert.fail();
+        byte[] data = TestUtil.hexStringToByteArray("440012323031323038323454313130353538");
+        try {
+            TimeHeader h = TimeHeader.parse(data);
+            Assert.assertEquals(new GregorianCalendar(2012, 7, 24,13,5,58).getTime(), h.getValue());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 }

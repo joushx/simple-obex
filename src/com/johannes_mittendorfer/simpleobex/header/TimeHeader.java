@@ -3,7 +3,9 @@ package com.johannes_mittendorfer.simpleobex.header;
 import com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -33,8 +35,11 @@ public class TimeHeader extends OBEXHeader<Date> {
         return dateFormat.format(date);
     }
 
-    public static TimeHeader parse(byte[] data){
-        throw new UnsupportedOperationException("Not implemented");
+    public static TimeHeader parse(byte[] data) throws ParseException {
+        String timestamp = new String(Arrays.copyOfRange(data, 3, data.length));
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return new TimeHeader(dateFormat.parse(timestamp));
     }
 
     @Override

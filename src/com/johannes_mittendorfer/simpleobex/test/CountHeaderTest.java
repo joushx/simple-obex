@@ -33,6 +33,9 @@ public class CountHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() {
-        Assert.fail();
+        byte[] data = new byte[]{(byte) 0xc0, 0x00, 0x00, 0x00, 0x5};
+        CountHeader h = CountHeader.parse(data);
+
+        Assert.assertEquals(5, (int)h.getValue());
     }
 }

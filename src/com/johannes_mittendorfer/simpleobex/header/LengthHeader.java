@@ -13,6 +13,11 @@ public class LengthHeader extends OBEXHeader<Integer> {
         bytes.add((byte) length);
     }
 
+    public static LengthHeader parse(byte[] data){
+        int length = data[1] << 3*8 | data[2] << 2*8 | data[3] << 8 | data[4];
+        return new LengthHeader(length);
+    }
+
     public String toString(){
         return "Length: " + value;
     }

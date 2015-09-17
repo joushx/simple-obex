@@ -25,7 +25,7 @@ public class TargetHeaderTest extends HeaderTest{
 
     @Test
     public void testGetLength(){
-        Assert.fail();
+        Assert.assertEquals(3+16, h.getLength());
     }
 
     @Test
@@ -36,6 +36,10 @@ public class TargetHeaderTest extends HeaderTest{
 
     @Override
     public void testParse() {
-        Assert.fail();
+        byte[] data = TestUtil.hexStringToByteArray("460013796135f0f0c511d809660800200c9a66");
+        byte[] expected = TestUtil.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
+        TargetHeader h = TargetHeader.parse(data);
+
+        Assert.assertArrayEquals(expected, h.getValue());
     }
 }

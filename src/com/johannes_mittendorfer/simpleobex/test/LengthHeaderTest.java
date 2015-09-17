@@ -21,7 +21,10 @@ public class LengthHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() {
-        Assert.fail();
+        byte[] data = TestUtil.hexStringToByteArray("c30007d9ca");
+        LengthHeader h = LengthHeader.parse(data);
+
+        Assert.assertEquals(514506, (int)h.getValue());
     }
 
     @Test

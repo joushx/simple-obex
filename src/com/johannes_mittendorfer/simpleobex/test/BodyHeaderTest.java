@@ -39,6 +39,6 @@ public class BodyHeaderTest extends HeaderTest{
 
     @Override
     public void testParse() {
-        Assert.fail();
+
     }
 }
