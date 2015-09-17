@@ -6,7 +6,7 @@ import org.junit.Before;
 
 public class EndOfBodyHeaderTest extends HeaderTest {
 
-    EndOfBodyHeader h;
+    private EndOfBodyHeader h;
 
     @Before
     public void init(){

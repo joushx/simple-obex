@@ -30,8 +30,7 @@ public class TimeHeader extends OBEXHeader<Date> {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String str = dateFormat.format(date);
-        return str;
+        return dateFormat.format(date);
     }
 
     public static TimeHeader parse(byte[] data){

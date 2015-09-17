@@ -2,7 +2,7 @@ package com.johannes_mittendorfer.simpleobex.header.templates;
 
 public abstract class StringHeader extends OBEXHeader<String> {
 
-    public StringHeader(byte id, String mimeType){
+    protected StringHeader(byte id, String mimeType){
         super(id, mimeType);
 
         int length = mimeType.getBytes().length + 3 + 1;

@@ -2,7 +2,7 @@ package com.johannes_mittendorfer.simpleobex.header.templates;
 
 public abstract class ByteHeader extends OBEXHeader<byte[]> {
 
-    public ByteHeader(byte id, byte[] data){
+    protected ByteHeader(byte id, byte[] data){
         super(id, data);
 
         int length = data.length + 3;

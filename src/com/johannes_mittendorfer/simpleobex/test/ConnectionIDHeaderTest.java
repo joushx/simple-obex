@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class ConnectionIDHeaderTest extends HeaderTest{
 
-    ConnectionIdHeader h;
+    private ConnectionIdHeader h;
 
     @Before
     public void init(){

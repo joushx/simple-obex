@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class OBEXHeader<T> {
-    protected ArrayList<Byte> bytes;
-    protected T value;
+    protected final ArrayList<Byte> bytes;
+    protected final T value;
 
-    public OBEXHeader(byte id, T value){
+    protected OBEXHeader(byte id, T value){
         bytes = new ArrayList<Byte>();
         bytes.add(id);
         this.value = value;

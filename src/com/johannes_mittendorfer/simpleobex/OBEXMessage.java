@@ -12,9 +12,9 @@ import java.util.List;
 
 public class OBEXMessage {
 
-    private ArrayList<OBEXHeader> headers = new ArrayList<OBEXHeader>();
-    private byte _opcode;
-    private boolean _final;
+    private final ArrayList<OBEXHeader> headers = new ArrayList<OBEXHeader>();
+    private final byte _opcode;
+    private final boolean _final;
     private byte _version;
     private byte _flags;
     private int _maxLength;

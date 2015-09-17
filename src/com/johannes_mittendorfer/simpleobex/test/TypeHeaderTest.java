@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TypeHeaderTest extends HeaderTest {
 
-    TypeHeader h;
+    private TypeHeader h;
 
     @Before
     public void init(){

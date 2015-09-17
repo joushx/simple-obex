@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class LengthHeaderTest extends HeaderTest {
 
-    LengthHeader h;
+    private LengthHeader h;
 
     @Before
     public void init(){

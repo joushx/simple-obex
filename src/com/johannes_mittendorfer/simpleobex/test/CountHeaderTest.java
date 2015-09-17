@@ -6,7 +6,7 @@ import org.junit.Before;
 
 public class CountHeaderTest extends HeaderTest {
 
-    CountHeader h;
+    private CountHeader h;
 
     @Before
     public void init(){

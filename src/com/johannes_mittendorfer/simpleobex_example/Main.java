@@ -6,7 +6,7 @@ import com.johannes_mittendorfer.simpleobex.header.TargetHeader;
 public class Main {
 
     public static void main(){
-        
+
         // create a connect message
         byte version = 0x10;
         byte flags = 0x10;

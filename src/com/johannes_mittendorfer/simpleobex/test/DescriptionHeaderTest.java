@@ -6,7 +6,7 @@ import org.junit.Before;
 
 public class DescriptionHeaderTest extends HeaderTest {
 
-    DescriptionHeader h;
+    private DescriptionHeader h;
 
     @Before
     public void init(){

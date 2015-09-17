@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 
 public class NameHeaderTest extends HeaderTest{
 
-    NameHeader h;
+    private NameHeader h;
 
     @Before
     public void init(){

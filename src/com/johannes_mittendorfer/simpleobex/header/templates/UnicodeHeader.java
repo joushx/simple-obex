@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class UnicodeHeader extends OBEXHeader<String> {
 
-    public UnicodeHeader(byte id, String text){
+    protected UnicodeHeader(byte id, String text){
         super(id, text);
 
         byte[] bytes = text.getBytes(StandardCharsets.UTF_16BE);

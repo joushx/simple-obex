@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 
 public class TimeHeaderTest extends HeaderTest {
 
-    TimeHeader h;
+    private TimeHeader h;
 
     @Before
     public void init(){

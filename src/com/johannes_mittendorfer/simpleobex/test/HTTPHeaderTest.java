@@ -6,7 +6,7 @@ import org.junit.Before;
 
 public class HTTPHeaderTest extends HeaderTest {
 
-    HTTPHeader h;
+    private HTTPHeader h;
 
     @Before
     public void init(){

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TargetHeaderTest extends HeaderTest{
 
-    TargetHeader h;
+    private TargetHeader h;
 
     @Before
     public void init(){

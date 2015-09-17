@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class WhoHeaderTest extends HeaderTest {
 
-    WhoHeader h;
+    private WhoHeader h;
 
     @Before
     public void init(){

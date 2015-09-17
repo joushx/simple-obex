@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class BodyHeaderTest extends HeaderTest{
 
-    BodyHeader h;
+    private BodyHeader h;
 
     @Before
     public void init(){
