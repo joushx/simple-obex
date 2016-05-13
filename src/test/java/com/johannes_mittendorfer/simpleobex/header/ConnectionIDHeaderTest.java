@@ -1,5 +1,7 @@
-package com.johannes_mittendorfer.simpleobex;
+package com.johannes_mittendorfer.simpleobex.header;
 
+import com.johannes_mittendorfer.simpleobex.HeaderTestAbstract;
+import com.johannes_mittendorfer.simpleobex.Util;
 import com.johannes_mittendorfer.simpleobex.header.ConnectionIdHeader;
 import org.junit.Assert;
 import org.junit.Before;
