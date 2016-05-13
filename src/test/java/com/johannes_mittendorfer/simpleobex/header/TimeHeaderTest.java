@@ -24,6 +24,7 @@ public class TimeHeaderTest extends HeaderTestAbstract {
     @Before
     public void init(){
         GregorianCalendar d = new GregorianCalendar(2012, 7, 24,13,5,58);
+        d.setTimeZone(TimeZone.getTimeZone("Europe/Vienna"));
         time = ZonedDateTime.ofInstant(d.toInstant(), ZoneId.of("Europe/Vienna"));
         h = new TimeHeader(time);
     }
@@ -56,6 +57,6 @@ public class TimeHeaderTest extends HeaderTestAbstract {
         byte[] data = Util.hexStringToByteArray("440012323031323038323454313130353538");
         TimeHeader header = TimeHeader.parse(data);
 
-        Assert.assertEquals("Time: 2012-08-24T09:05:58Z[UTC]", header.toString());
+        Assert.assertEquals("Time: 2012-08-24T11:05:58Z[UTC]", header.toString());
     }
 }
