@@ -1,10 +1,11 @@
 package com.johannes_mittendorfer.simpleobex;
 
-import com.johannes_mittendorfer.simpleobex.OBEXMessage;
 import com.johannes_mittendorfer.simpleobex.header.*;
 import com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,6 +16,21 @@ public class OBEXMessageTest {
     public void testGenerate(){
 
         OBEXMessage message = new OBEXMessage((byte) 0x03, true);
+
+        message.addHeader(new ConnectionIdHeader(1));
+        message.addHeader(new NameHeader("telecom/pb.vcf"));
+        message.addHeader(new TypeHeader("x-bt/phonebook"));
+
+        byte[] expected = Util.hexStringToByteArray("83003bcb0000000101002100740065006c00650063006f006d002f00700062002e0076006300660000420012782d62742f70686f6e65626f6f6b00");
+        byte[] actual = message.getBytes();
+
+        Assert.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateOpcode(){
+
+        OBEXMessage message = new OBEXMessage(Opcode.GET, true);
 
         message.addHeader(new ConnectionIdHeader(1));
         message.addHeader(new NameHeader("telecom/pb.vcf"));
@@ -38,7 +54,7 @@ public class OBEXMessageTest {
     }
 
     @Test
-    public void testParse(){
+    public void testParse() throws UnsupportedEncodingException {
         byte[] data = Util.hexStringToByteArray("83003acb0000000101002100740065006c00650063006f006d002f00700062002e0076006300660000420012782d62742f70686f6e65626f6f6b00");
         OBEXMessage msg = OBEXMessage.parse(data);
 
@@ -52,8 +68,21 @@ public class OBEXMessageTest {
         assertEquals("x-bt/phonebook", ((TypeHeader) headers[2]).getValue());
     }
 
-    /*@Test
-    public void testParseConnect(){
-        Assert.fail();
-    }*/
+    @Test
+    public void testToString(){
+        OBEXMessage message = new OBEXMessage((byte) 0x03, true);
+
+        message.addHeader(new ConnectionIdHeader(1));
+        message.addHeader(new NameHeader("telecom/pb.vcf"));
+        message.addHeader(new TypeHeader("x-bt/phonebook"));
+
+        assertEquals("Operation: GET\nLength: 59\nConnection-Id: 1\nName: telecom/pb.vcf\nType: x-bt/phonebook", message.toString());
+    }
+
+    @Test
+    public void testToStringConnect(){
+        OBEXMessage message = new OBEXMessage((byte) 0x10, (byte) 0x05, 200);
+
+        assertEquals("Operation: CONNECT\nLength: 7\nFlags: 101\nVersion: 0x10\nMax. length: 200", message.toString());
+    }
 }

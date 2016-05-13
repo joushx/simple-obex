@@ -51,7 +51,7 @@ public class OBEXMessage {
      * @param data the bytes of the message
      * @return a {@link com.johannes_mittendorfer.simpleobex.OBEXMessage} object
      */
-    public static OBEXMessage parse(byte[] data){
+    public static OBEXMessage parse(byte[] data) throws UnsupportedEncodingException {
 
         OBEXMessage msg = new OBEXMessage((byte) (data[0] & 0x7f), ((data[0] & 0xFF) >> 7) == 1);
 
@@ -74,11 +74,7 @@ public class OBEXMessage {
                     h_length = data[i+1] << 8 | data[i+2];
                     bytes = Arrays.copyOfRange(data, i, i+h_length);
                     i += h_length;
-                    try {
-                        msg.addHeader(NameHeader.parse(bytes));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    msg.addHeader(NameHeader.parse(bytes));
                     break;
                 case 0x42:
                     h_length = data[i+1] << 8 | data[i+2];
@@ -200,10 +196,19 @@ public class OBEXMessage {
 
     public String toString(){
         String result = "";
-        result += "Operation: " + _opcode + "\nLength: ";
+
+        // lookup opcode in enum
+        Opcode operation = null;
+        for(Opcode op: Opcode.values()){
+            if(_opcode == op.getNumVal()){
+                operation = op;
+            }
+        }
+
+        result += "Operation: " + operation.toString() + "\nLength: " + getLength();
 
         if(connect){
-            result += "\nFlags: " + _flags + "\nVersion: " + _version + "\nMax. length: " + _maxLength;
+            result += "\nFlags: " + Integer.toString(_flags,2) + "\nVersion: 0x" + Integer.toHexString(_version) + "\nMax. length: " + _maxLength;
         }
 
         for(OBEXHeader h: getHeaders()){
