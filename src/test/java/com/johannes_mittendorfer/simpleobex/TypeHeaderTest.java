@@ -1,11 +1,11 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.TypeHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TypeHeaderTest extends HeaderTest {
+public class TypeHeaderTest extends HeaderTestAbstract {
 
     private TypeHeader h;
 
@@ -16,7 +16,7 @@ public class TypeHeaderTest extends HeaderTest {
 
     @Test
     public void testGenerate(){
-        byte[] expected = TestUtil.hexStringToByteArray("420012782d62742f70686f6e65626f6f6b00");
+        byte[] expected = Util.hexStringToByteArray("420012782d62742f70686f6e65626f6f6b00");
         byte[] actual = h.getBytes();
 
         Assert.assertArrayEquals(expected, actual);
@@ -34,7 +34,7 @@ public class TypeHeaderTest extends HeaderTest {
 
     @Test
     public void testParse() {
-        byte[] data = TestUtil.hexStringToByteArray("420012782d62742f70686f6e65626f6f6b00");
+        byte[] data = Util.hexStringToByteArray("420012782d62742f70686f6e65626f6f6b00");
         TypeHeader h = TypeHeader.parse(data);
 
         Assert.assertEquals("x-bt/phonebook", h.getValue());

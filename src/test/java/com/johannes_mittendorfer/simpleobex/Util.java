@@ -1,6 +1,6 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
-public class TestUtil {
+public class Util {
     public static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];

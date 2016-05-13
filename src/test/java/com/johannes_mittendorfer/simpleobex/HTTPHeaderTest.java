@@ -1,10 +1,10 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.HTTPHeader;
 import org.junit.Assert;
 import org.junit.Before;
 
-public class HTTPHeaderTest extends HeaderTest {
+public class HTTPHeaderTest extends HeaderTestAbstract {
 
     private HTTPHeader h;
 

@@ -1,10 +1,10 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.CountHeader;
 import org.junit.Assert;
 import org.junit.Before;
 
-public class CountHeaderTest extends HeaderTest {
+public class CountHeaderTest extends HeaderTestAbstract {
 
     private CountHeader h;
 

@@ -1,12 +1,11 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.ConnectionIdHeader;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ConnectionIDHeaderTest extends HeaderTest{
+public class ConnectionIDHeaderTest extends HeaderTestAbstract {
 
     private ConnectionIdHeader h;
 
@@ -18,7 +17,7 @@ public class ConnectionIDHeaderTest extends HeaderTest{
     @Test
     public void testGenerate(){
         byte[] actual = h.getBytes();
-        byte[] expected = TestUtil.hexStringToByteArray("cb00000001");
+        byte[] expected = Util.hexStringToByteArray("cb00000001");
 
         Assert.assertArrayEquals(expected, actual);
     }
@@ -31,11 +30,11 @@ public class ConnectionIDHeaderTest extends HeaderTest{
 
     @Test
     public void testParse(){
-        byte[] data = TestUtil.hexStringToByteArray("cb00000001");
+        byte[] data = Util.hexStringToByteArray("cb00000001");
         ConnectionIdHeader h = ConnectionIdHeader.parse(data);
 
-        TestCase.assertEquals(1, h.getId());
-        TestCase.assertEquals(5, h.getLength());
+        Assert.assertEquals(1, h.getId());
+        Assert.assertEquals(5, h.getLength());
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -1,11 +1,11 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.LengthHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LengthHeaderTest extends HeaderTest {
+public class LengthHeaderTest extends HeaderTestAbstract {
 
     private LengthHeader h;
 
@@ -21,7 +21,7 @@ public class LengthHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() {
-        byte[] data = TestUtil.hexStringToByteArray("c30007d9ca");
+        byte[] data = Util.hexStringToByteArray("c30007d9ca");
         LengthHeader h = LengthHeader.parse(data);
 
         Assert.assertEquals(514506, (int)h.getValue());
@@ -29,7 +29,7 @@ public class LengthHeaderTest extends HeaderTest {
 
     @Test
     public void testGenerate() throws Exception {
-        byte[] expected = TestUtil.hexStringToByteArray("c30007d9ca");
+        byte[] expected = Util.hexStringToByteArray("c30007d9ca");
         byte[] actual = h.getBytes();
 
         Assert.assertArrayEquals(expected, actual);

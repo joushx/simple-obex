@@ -1,23 +1,23 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.WhoHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WhoHeaderTest extends HeaderTest {
+public class WhoHeaderTest extends HeaderTestAbstract {
 
     private WhoHeader h;
 
     @Before
     public void init(){
-        byte[] uuid = TestUtil.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
+        byte[] uuid = Util.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
         h = new WhoHeader(uuid);
     }
 
     @Override
     public void testGenerate() {
-        byte[] expected = TestUtil.hexStringToByteArray("4a0013796135f0f0c511d809660800200c9a66");
+        byte[] expected = Util.hexStringToByteArray("4a0013796135f0f0c511d809660800200c9a66");
         byte[] actual = h.getBytes();
 
         Assert.assertArrayEquals(expected, actual);
@@ -25,7 +25,7 @@ public class WhoHeaderTest extends HeaderTest {
 
     @Test
     public void testGetLength(){
-        byte[] uuid = TestUtil.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
+        byte[] uuid = Util.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
         int expected = 1+2+uuid.length;
 
         Assert.assertEquals(expected, h.getLength());
@@ -39,8 +39,8 @@ public class WhoHeaderTest extends HeaderTest {
 
     @Override
     public void testParse() {
-        byte[] expected = TestUtil.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
-        byte[] data = TestUtil.hexStringToByteArray("4a0013796135f0f0c511d809660800200c9a66");
+        byte[] expected = Util.hexStringToByteArray("796135f0f0c511d809660800200c9a66");
+        byte[] data = Util.hexStringToByteArray("4a0013796135f0f0c511d809660800200c9a66");
 
         WhoHeader h = WhoHeader.parse(data);
 

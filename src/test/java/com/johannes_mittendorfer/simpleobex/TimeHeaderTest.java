@@ -1,4 +1,4 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.TimeHeader;
 import org.junit.Assert;
@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.GregorianCalendar;
 
-public class TimeHeaderTest extends HeaderTest {
+public class TimeHeaderTest extends HeaderTestAbstract {
 
     private TimeHeader h;
 
@@ -21,7 +21,7 @@ public class TimeHeaderTest extends HeaderTest {
 
     @Test
     public void testGenerate(){
-        byte[] expected = TestUtil.hexStringToByteArray("440012323031323038323454313130353538");
+        byte[] expected = Util.hexStringToByteArray("440012323031323038323454313130353538");
         byte[] actual = h.getBytes();
 
         Assert.assertArrayEquals(expected, actual);
@@ -44,7 +44,7 @@ public class TimeHeaderTest extends HeaderTest {
 
     @Test
     public void testParse() throws UnsupportedEncodingException {
-        byte[] data = TestUtil.hexStringToByteArray("440012323031323038323454313130353538");
+        byte[] data = Util.hexStringToByteArray("440012323031323038323454313130353538");
         try {
             TimeHeader h = TimeHeader.parse(data);
             Assert.assertEquals(new GregorianCalendar(2012, 7, 24,13,5,58).getTime(), h.getValue());

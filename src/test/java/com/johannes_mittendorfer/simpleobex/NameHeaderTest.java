@@ -1,4 +1,4 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.NameHeader;
 import org.junit.Assert;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 
-public class NameHeaderTest extends HeaderTest{
+public class NameHeaderTest extends HeaderTestAbstract {
 
     private NameHeader h;
 
@@ -18,7 +18,7 @@ public class NameHeaderTest extends HeaderTest{
 
     @Test
     public void testGenerate(){
-        byte[] expected = TestUtil.hexStringToByteArray("01002100740065006c00650063006f006d002f00700062002e0076006300660000");
+        byte[] expected = Util.hexStringToByteArray("01002100740065006c00650063006f006d002f00700062002e0076006300660000");
         byte[] actual = h.getBytes();
 
         Assert.assertArrayEquals(expected, actual);
@@ -36,7 +36,7 @@ public class NameHeaderTest extends HeaderTest{
 
     @Test
     public void testParse() throws UnsupportedEncodingException {
-        byte[] data = TestUtil.hexStringToByteArray("01002100740065006c00650063006f006d002f00700062002e0076006300660000");
+        byte[] data = Util.hexStringToByteArray("01002100740065006c00650063006f006d002f00700062002e0076006300660000");
         NameHeader h = NameHeader.parse(data);
 
         Assert.assertEquals("telecom/pb.vcf", h.getValue());

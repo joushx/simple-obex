@@ -1,8 +1,8 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import org.junit.Test;
 
-public abstract class HeaderTest {
+public abstract class HeaderTestAbstract {
 
     @Test
     public abstract void testGenerate() throws Exception;

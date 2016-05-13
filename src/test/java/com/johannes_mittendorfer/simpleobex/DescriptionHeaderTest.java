@@ -1,10 +1,10 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.DescriptionHeader;
 import org.junit.Assert;
 import org.junit.Before;
 
-public class DescriptionHeaderTest extends HeaderTest {
+public class DescriptionHeaderTest extends HeaderTestAbstract {
 
     private DescriptionHeader h;
 

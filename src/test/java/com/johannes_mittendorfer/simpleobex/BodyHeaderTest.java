@@ -1,11 +1,11 @@
-package com.johannes_mittendorfer.simpleobex.test;
+package com.johannes_mittendorfer.simpleobex;
 
 import com.johannes_mittendorfer.simpleobex.header.BodyHeader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BodyHeaderTest extends HeaderTest{
+public class BodyHeaderTest extends HeaderTestAbstract {
 
     private BodyHeader h;
 
