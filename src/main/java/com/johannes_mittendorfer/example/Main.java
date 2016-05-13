@@ -1,11 +1,11 @@
-package com.johannes_mittendorfer.simpleobex_example;
+package com.johannes_mittendorfer.example;
 
 import com.johannes_mittendorfer.simpleobex.OBEXMessage;
 import com.johannes_mittendorfer.simpleobex.header.TargetHeader;
 
 public class Main {
 
-    public static void main(){
+    public static void main(String[] argv){
 
         // create a connect message
         byte version = 0x10;
