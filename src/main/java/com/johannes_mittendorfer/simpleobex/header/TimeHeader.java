@@ -37,11 +37,6 @@ public class TimeHeader extends OBEXHeader<ZonedDateTime> {
     }
 
     private String getISO8601StringForDate(ZonedDateTime date) {
-
-        if(date == null){
-            throw new IllegalArgumentException("date cannot be null");
-        }
-
         return date.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss"));
     }
 

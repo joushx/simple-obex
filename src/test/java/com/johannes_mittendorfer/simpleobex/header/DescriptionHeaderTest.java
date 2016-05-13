@@ -4,6 +4,7 @@ import com.johannes_mittendorfer.simpleobex.HeaderTestAbstract;
 import com.johannes_mittendorfer.simpleobex.header.DescriptionHeader;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 public class DescriptionHeaderTest extends HeaderTestAbstract {
 
@@ -35,5 +36,11 @@ public class DescriptionHeaderTest extends HeaderTestAbstract {
         DescriptionHeader h = DescriptionHeader.parse(data);
 
         Assert.assertEquals("Foo", h.getValue());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseShort() throws Exception {
+        byte[] data = new byte[]{0x02};
+        DescriptionHeader.parse(data);
     }
 }

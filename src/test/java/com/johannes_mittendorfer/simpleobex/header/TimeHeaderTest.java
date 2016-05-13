@@ -59,4 +59,6 @@ public class TimeHeaderTest extends HeaderTestAbstract {
 
         Assert.assertEquals("Time: 2012-08-24T11:05:58Z[UTC]", header.toString());
     }
+
+
 }

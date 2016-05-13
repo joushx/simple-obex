@@ -10,11 +10,11 @@ public class CreatorIDHeader extends ByteHeader {
 
     @Override
     public int getLength() {
-        return 5;
+        return value.length+3;
     }
 
     @Override
     public String toString() {
-        return null;
+        return "Creator ID: " + bytesToHex(value);
     }
 }

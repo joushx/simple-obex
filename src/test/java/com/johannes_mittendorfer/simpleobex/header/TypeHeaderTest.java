@@ -47,4 +47,10 @@ public class TypeHeaderTest extends HeaderTestAbstract {
     public void testToString(){
         Assert.assertEquals("Type: x-bt/phonebook", h.toString());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParseShort() throws Exception {
+        byte[] data = new byte[]{0x02};
+        TypeHeader.parse(data);
+    }
 }
