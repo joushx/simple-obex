@@ -15,21 +15,6 @@ public class OBEXMessageTest {
     @Test
     public void testGenerate(){
 
-        OBEXMessage message = new OBEXMessage((byte) 0x03, true);
-
-        message.addHeader(new ConnectionIdHeader(1));
-        message.addHeader(new NameHeader("telecom/pb.vcf"));
-        message.addHeader(new TypeHeader("x-bt/phonebook"));
-
-        byte[] expected = Util.hexStringToByteArray("83003bcb0000000101002100740065006c00650063006f006d002f00700062002e0076006300660000420012782d62742f70686f6e65626f6f6b00");
-        byte[] actual = message.getBytes();
-
-        Assert.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testGenerateOpcode(){
-
         OBEXMessage message = new OBEXMessage(Opcode.GET, true);
 
         message.addHeader(new ConnectionIdHeader(1));
@@ -70,7 +55,7 @@ public class OBEXMessageTest {
 
     @Test
     public void testToString(){
-        OBEXMessage message = new OBEXMessage((byte) 0x03, true);
+        OBEXMessage message = new OBEXMessage(Opcode.GET, true);
 
         message.addHeader(new ConnectionIdHeader(1));
         message.addHeader(new NameHeader("telecom/pb.vcf"));

@@ -24,7 +24,7 @@ public class OBEXMessage {
     private boolean connect;
 
     /**
-     * Retrieves the length of the whole message including all headers in bytes.
+     * Returns the length of the whole message including all headers in bytes.
      *
      * @return the length in bytes
      */
@@ -53,13 +53,23 @@ public class OBEXMessage {
      */
     public static OBEXMessage parse(byte[] data) throws UnsupportedEncodingException {
 
-        OBEXMessage msg = new OBEXMessage((byte) (data[0] & 0x7f), ((data[0] & 0xFF) >> 7) == 1);
+        // lookup opcode in enum
+        Opcode operation = null;
+        for(Opcode op: Opcode.values()){
+            if((data[0] & 0x7f) == op.getNumVal()){
+                operation = op;
+            }
+        }
+
+        // create instance
+        OBEXMessage msg = new OBEXMessage(operation, ((data[0] & 0xFF) >> 7) == 1);
 
         int length = data[1] << 8 | data[2];
 
         byte[] bytes;
         int h_length;
 
+        // parse header
         int i = 3;
         while(i < length-1){
             byte id = data[i];
@@ -92,24 +102,15 @@ public class OBEXMessage {
     }
 
     /**
-     * Creates a OBEX message with the opcode as {@link java.lang.Byte}.
-     *
-     * @param opcode The opcode of the message (e.g. GET, PUT, ...)
-     * @param isFinal If true the packet is marked as final packet
-     */
-    public OBEXMessage(byte opcode, boolean isFinal){
-        this._opcode = opcode;
-        this._final = isFinal;
-    }
-
-    /**
      * Creates a OBEX message with the opcode as a {@link com.johannes_mittendorfer.simpleobex.Opcode} value.
+     * OBEX connect messages must use {@link #OBEXMessage(byte, byte, int)}.
      *
      * @param opcode The opcode of the message (e.g. GET, PUT, ...)
      * @param isFinal If true the packet is marked as final packet
      */
     public OBEXMessage(Opcode opcode, boolean isFinal) {
-        this((byte)opcode.getNumVal(), isFinal);
+        this._opcode = (byte) opcode.getNumVal();
+        this._final = isFinal;
     }
 
     /**
@@ -129,7 +130,7 @@ public class OBEXMessage {
     }
 
     /**
-     * Returns the raw message bytes according to your settings.
+     * Returns the raw message bytes according to the current state.
      *
      * @return bytes of the message
      */
@@ -177,7 +178,7 @@ public class OBEXMessage {
     }
 
     /**
-     * Gets the opcode (e.g. GET, PUT,...) of the message
+     * Return the opcode (GET, PUT,...) of the message
      *
      * @return the opcode
      */
@@ -194,6 +195,7 @@ public class OBEXMessage {
         return _final;
     }
 
+    @Override
     public String toString(){
         String result = "";
 
