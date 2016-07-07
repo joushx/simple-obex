@@ -1,11 +1,10 @@
 package com.johannes_mittendorfer.simpleobex;
 
-import com.johannes_mittendorfer.simpleobex.header.ConnectionIdHeader;
+import com.johannes_mittendorfer.simpleobex.header.*;
 import com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader;
-import com.johannes_mittendorfer.simpleobex.header.NameHeader;
-import com.johannes_mittendorfer.simpleobex.header.TypeHeader;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,25 +73,38 @@ public class OBEXMessage {
         while(i < length-1){
             byte id = data[i];
 
-            switch (id & 0xFF){
-                case 0xcb:
-                    bytes = Arrays.copyOfRange(data, i, i+5);
-                    i += 5;
-                    msg.addHeader(ConnectionIdHeader.parse(bytes));
-                    break;
-                case 0x01:
-                    h_length = data[i+1] << 8 | data[i+2];
-                    bytes = Arrays.copyOfRange(data, i, i+h_length);
-                    i += h_length;
-                    msg.addHeader(NameHeader.parse(bytes));
-                    break;
-                case 0x42:
-                    h_length = data[i+1] << 8 | data[i+2];
-                    bytes = Arrays.copyOfRange(data, i, i+h_length);
-                    i += h_length;
-                    msg.addHeader(TypeHeader.parse(bytes));
-                    break;
+            try {
 
+                h_length = data[i + 1] << 8 | data[i + 2];
+                bytes = Arrays.copyOfRange(data, i, i + h_length);
+
+                switch (id & 0xFF) {
+                    case 0xcb:
+                        bytes = Arrays.copyOfRange(data, i, i + 5);
+                        i += 5;
+                        msg.addHeader(ConnectionIdHeader.parse(bytes));
+                        break;
+                    case 0x01:
+                        i += h_length;
+                        msg.addHeader(NameHeader.parse(bytes));
+                        break;
+                    case 0x42:
+                        i += h_length;
+                        msg.addHeader(TypeHeader.parse(bytes));
+                        break;
+                    case 0x44:
+                        i += h_length;
+                        msg.addHeader(TimeHeader.parse(bytes));
+                        break;
+                    case 0xC3:
+                        i += h_length;
+                        msg.addHeader(LengthHeader.parse(bytes));
+                        break;
+                    default:
+                        i++;
+                }
+            }catch (ParseException e){
+                e.printStackTrace();
             }
 
 
