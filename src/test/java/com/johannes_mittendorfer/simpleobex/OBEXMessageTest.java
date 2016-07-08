@@ -3,6 +3,7 @@ package com.johannes_mittendorfer.simpleobex;
 import com.johannes_mittendorfer.simpleobex.header.*;
 import com.johannes_mittendorfer.simpleobex.header.templates.OBEXHeader;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -67,7 +68,7 @@ public class OBEXMessageTest {
         assertEquals(1, ((ConnectionIdHeader)headers[0]).getId());
         assertEquals("image.jpg", ((NameHeader) headers[1]).getValue());
         assertEquals("image/jpg", ((TypeHeader) headers[2]).getValue());
-        assertEquals("2016-07-06T16:02:30Z[UTC]", ((TimeHeader) headers[3]).getValue().toString());
+        assertEquals("Time: 2016-07-06T16:02:30Z[UTC]", headers[3].toString());
         assertEquals((Integer) 411986, ((LengthHeader) headers[4]).getValue());
     }
 

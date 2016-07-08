@@ -33,6 +33,7 @@
             <batchtest>
                 <fileset dir="${test.src.dir}" includes="**/*Test.java" />
             </batchtest>
+            <sysproperty key="user.timezone" value="UTC"/>
         </junit>
     </target>
 </project>
