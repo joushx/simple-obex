@@ -52,24 +52,60 @@ public class OBEXMessage {
      */
     public static OBEXMessage parse(byte[] data) throws UnsupportedEncodingException {
 
+        // create variable for position
+        int i = 0;
+
         // lookup opcode in enum
         Opcode operation = null;
         for(Opcode op: Opcode.values()){
-            if((data[0] & 0x7f) == op.getNumVal()){
+            if((data[i] & 0x7f) == op.getNumVal()){
                 operation = op;
             }
         }
 
-        // create instance
-        OBEXMessage msg = new OBEXMessage(operation, ((data[0] & 0xFF) >> 7) == 1);
+        // read final flag
+        boolean finalFlag = ((data[i] & 0xFF) >> 7) == 1;
 
-        int length = data[1] << 8 | data[2];
+        i++;
+
+        int length = 0;
+
+        // create instance
+        OBEXMessage msg;
+        if(operation == Opcode.CONNECT){
+
+            // read packet length
+            length = data[i] << 8 | data[i+1];
+            i+=2;
+
+            // read protocol version
+            int version = data[i];
+            i++;
+
+            // read connection flags
+            int flags = data[i];
+            i++;
+
+            // read maximum length
+            int maxLength = (data[i] & 0xFF) << 8 | data[i+1] & 0xFF;
+            i+=2;
+
+            // create message instance
+            msg = new OBEXMessage((byte)version, (byte)flags, maxLength);
+        }
+        else {
+            // read message length
+            length = data[i] << 8 | data[i+1];
+            i+=2;
+
+            // create message instance
+            msg = new OBEXMessage(operation, finalFlag);
+        }
 
         byte[] bytes;
         int h_length;
 
-        // parse header
-        int i = 3;
+        // parse headers
         while(i < length-1){
             byte id = data[i];
 
@@ -101,7 +137,7 @@ public class OBEXMessage {
                         msg.addHeader(LengthHeader.parse(bytes));
                         break;
                     default:
-                        i++;
+                        throw new IllegalStateException("Header " + Integer.toHexString(id) + " not yet implemented");
                 }
             }catch (ParseException e){
                 e.printStackTrace();
@@ -205,6 +241,48 @@ public class OBEXMessage {
      */
     public boolean isFinal() {
         return _final;
+    }
+
+    /**
+     * Returns the version of the protocol as defined in a connect message
+     * @return The version
+     * @throws IllegalStateException if message is no connect message
+     */
+    public byte getVersion() throws IllegalStateException{
+
+        if(!connect){
+            throw new IllegalStateException("Version is only available in connect messages");
+        }
+
+        return _version;
+    }
+
+    /**
+     * Returns the connection flags as defined in a connect message
+     * @return The flags
+     * @throws IllegalStateException if message is no connect message
+     */
+    public byte getFlags() throws IllegalStateException {
+
+        if(!connect){
+            throw new IllegalStateException("Flags are only available in connect messages");
+        }
+
+        return _flags;
+    }
+
+    /**
+     * Returns the maximum packet length in a connection as defined in a connect message
+     * @return The length
+     * @throws IllegalStateException if message is no connect message
+     */
+    public int getMaxLength() throws IllegalStateException {
+
+        if(!connect){
+            throw new IllegalStateException("Maximum length is only available in connect messages");
+        }
+
+        return _maxLength;
     }
 
     @Override

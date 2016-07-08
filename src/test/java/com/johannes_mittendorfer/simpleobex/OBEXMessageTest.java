@@ -72,6 +72,34 @@ public class OBEXMessageTest {
     }
 
     @Test
+    public void testParseConnect() throws UnsupportedEncodingException {
+        byte[] data = Util.hexStringToByteArray("80000710000384");
+        OBEXMessage msg = OBEXMessage.parse(data);
+
+        assertEquals(Opcode.CONNECT.getNumVal(), msg.getOpcode());
+        assertTrue(msg.isFinal());
+
+        OBEXHeader[] headers = msg.getHeaders();
+        assertEquals(0, headers.length);
+
+        assertEquals(0x10, msg.getVersion());
+        assertEquals(0x0, msg.getFlags());
+        assertEquals(900, msg.getMaxLength());
+    }
+
+    @Test
+    public void testParseContinue() throws UnsupportedEncodingException {
+        byte[] data = Util.hexStringToByteArray("900003");
+        OBEXMessage msg = OBEXMessage.parse(data);
+
+        assertEquals(Opcode.CONTINUE.getNumVal(), msg.getOpcode());
+        assertTrue(msg.isFinal());
+
+        OBEXHeader[] headers = msg.getHeaders();
+        assertEquals(0, headers.length);
+    }
+
+    @Test
     public void testToString(){
         OBEXMessage message = new OBEXMessage(Opcode.GET, true);
 
